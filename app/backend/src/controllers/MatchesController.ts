@@ -8,7 +8,8 @@ export default class MatchesController {
     const { inProgress } = req.query;
 
     if (inProgress) {
-      const filteredMatches = await this.matchesService.getAll({ where: { inProgress: true } });
+      const boolean = inProgress === 'true';
+      const filteredMatches = await this.matchesService.getAll({ where: { inProgress: boolean } });
 
       return res.status(200).json(filteredMatches);
     }
