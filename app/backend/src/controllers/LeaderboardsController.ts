@@ -17,4 +17,11 @@ export default class LeaderboardsController {
 
     return res.status(200).json(sorted);
   };
+
+  getLeaderboard = async (req: Request, res: Response) => {
+    const leaderboard = await this.leaderboardsService.getHomeLeaderboard();
+    const sorted = this.leaderboardsService.sortScore(leaderboard as never);
+
+    return res.status(200).json(sorted);
+  };
 }
