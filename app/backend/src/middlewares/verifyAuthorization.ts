@@ -8,12 +8,12 @@ const verifyAuthorization = (
 ) => {
   const { authorization } = req.headers;
 
-  if (!authorization) return res.status(401).json({ message: 'Invalid Token' });
+  if (!authorization) return res.status(401).json({ message: 'Token must be a valid token' });
 
   try {
     decode(authorization);
   } catch {
-    return res.status(401).json({ message: 'Invalid Token' });
+    return res.status(401).json({ message: 'Token must be a valid token' });
   }
   next();
 };

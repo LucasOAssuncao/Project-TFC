@@ -1,8 +1,12 @@
 import { Request, Response } from 'express';
 import MatchesService from '../services/MatchesService';
+import TeamService from '../services/TeamService';
 
 export default class MatchesController {
-  constructor(private matchesService = new MatchesService()) {}
+  constructor(
+    private matchesService = new MatchesService(),
+    private teamService = new TeamService(),
+  ) {}
 
   getAll = async (req: Request, res: Response) => {
     const { inProgress } = req.query;
@@ -25,6 +29,14 @@ export default class MatchesController {
     if (homeTeam === awayTeam) {
       return res.status(422)
         .json({ message: 'It is not possible to create a match with two equal teams' });
+    }
+
+    const validateTeams = await this.teamService.findById([homeTeam, awayTeam]);
+
+    if ('statusCode' in validateTeams) {
+      const { statusCode, message } = validateTeams;
+
+      return res.status(statusCode).json({ message });
     }
 
     const matchInserted = await this.matchesService.insert(match);
