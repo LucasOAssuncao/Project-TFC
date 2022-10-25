@@ -69,3 +69,8 @@ export const mockAllTeams = [
     id: 5,
     teamName: 'Cruzeiro',
   };
+
+  export const mockTeamById2 = {
+    id: 7,
+    teamName: 'Flamengo',
+  };
