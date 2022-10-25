@@ -13,8 +13,8 @@ import {
   MockForEqualTeams,
   MockForInvalidTeam,
 } from './mocks/matches';
-import { mockRightResponse } from './mocks/login';
-import { mockTeamById2, mockTeamById} from './mocks/teams';
+import { mockRightResponse, mockWrongResponse } from './mocks/login';
+import { mockTeamById } from './mocks/teams';
 import MatchesModel from '../database/models/matches';
 import TeamModel from '../database/models/teams';
 
@@ -60,16 +60,16 @@ describe('Testando o endpoint /matches', () => {
 
       expect(res.body).to.be.deep.equal(MockForCreateMatch)
     });
-    // it('retorna a mensagem de token invalido', async () => {
-    //   sinon.stub(jwt, 'verify').resolves(false);
+    it('retorna a mensagem de token invalido', async () => {
+      sinon.stub(jwt, 'verify').resolves(new Error() as any);
 
-    //   const res = await chai.request(app)
-    //   .post('/matches')
-    //   .send(MockForCreateMatch)
-    //   .set('authorization', mockRightResponse);
+      const res = await chai.request(app)
+      .post('/matches')
+      .send(MockForCreateMatch)
+      .set('authorization', mockWrongResponse);
 
-    //   expect(res.body.message).to.be.deep.equal('Token must be a valid token')
-    // });
+      expect(res.body.message).to.be.deep.equal('Token must be a valid token')
+    });
     it('retorna uma mensagem se os dois times forem iguais', async () => {
       sinon.stub(TeamModel, 'findOne').resolves(mockTeamById as any)
       sinon.stub(MatchesModel, 'create').resolves(MockForCreateMatch as any);
@@ -87,7 +87,7 @@ describe('Testando o endpoint /matches', () => {
       const res = await chai.request(app)
       .post('/matches')
       .send(MockForInvalidTeam)
-      .set('authorization', mockRightResponse);
+      .set('authorization', mockWrongResponse);
   
       expect(res.body.message).to.be.deep.equal('There is no team with such id!')
     });

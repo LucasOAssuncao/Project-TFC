@@ -27,3 +27,6 @@ export const mockWithoutEmail = {
 
 export const mockRightResponse =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InJvbGUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIn0sImlhdCI6MTY2NjM5MzM0OSwiZXhwIjoxNjY3MjU3MzQ5fQ.0h2eWInBopIUHIZm2kxCRydo8FmTYCQ1C-t7OhNyl80';
+
+  export const mockWrongResponse =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InJvbGUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIn0sImlhdCI6MTY2NjM5MzM0OSwiZXhwIjoxNjY3MjU3MzQ5fQ.0h2eWInBopIUHIZm2kxCRydo8FmTYCQ1C-t7OhNyl80';
