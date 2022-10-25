@@ -1,6 +1,6 @@
 import Matches from '../database/models/matches';
 import Team from '../database/models/teams';
-// import { IMatches } from '../interfaces/IMatches';
+import { IGoals } from '../interfaces/IGoals';
 
 type IParam<T> = {
   [key: string]: T;
@@ -32,5 +32,23 @@ export default class MatchesService {
     await Matches.update({ inProgress: false }, { where: { id } });
 
     return { message: 'Finished' };
+  };
+
+  findById = async (id: number): Promise<Matches | null> => {
+    const finded = await Matches.findOne({
+      where: { id },
+    });
+
+    return finded;
+  };
+
+  update = async (id: number, goals: IGoals): Promise<Matches | null> => {
+    const { homeTeamGoals, awayTeamGoals } = goals;
+
+    await Matches.update({ awayTeamGoals, homeTeamGoals }, { where: { id } });
+
+    const updated = await this.findById(id);
+
+    return updated;
   };
 }
