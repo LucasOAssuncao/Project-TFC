@@ -18,4 +18,13 @@ export default class MatchesService {
 
     return allMatches;
   };
+
+  insert = async (match: Matches): Promise<Matches> => {
+    const inserted = await Matches.create({
+      ...match,
+      inProgress: true,
+    });
+
+    return inserted;
+  };
 }
