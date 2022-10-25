@@ -27,4 +27,10 @@ export default class MatchesService {
 
     return inserted;
   };
+
+  endStatus = async (id: string): Promise<{ message: string }> => {
+    await Matches.update({ inProgress: false }, { where: { id } });
+
+    return { message: 'Finished' };
+  };
 }
